@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {URLS} from "../shared/URLS";
-import {BrowserRouter as Router} from "react-router-dom";
+import {BrowserRouter as Router, Link} from "react-router-dom";
 import RSSfeedView from "./RSSfeedView";
 
 const Home = () => {
@@ -37,7 +37,13 @@ const Home = () => {
                 {userFeeds.map( (feed, index) => {
                     return(
                         <div key={index} className={"container"}>
-                            <h1>{feed}</h1>
+                            {/*<Link to={`/FeedLinkView/${feed}`}><h1>{feed}</h1></Link>*/}
+                            <Link to={{
+                                pathname : '/FeedLinkView',
+                                state:{
+                                    url: feed
+                                }
+                            }}><h1>{feed}</h1></Link>
 
 
                         </div>

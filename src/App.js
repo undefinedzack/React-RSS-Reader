@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import Card from './components/cards'
 
-import { BrowserRouter as Router, Switch} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
 import RSSfeedView from "./components/RSSfeedView";
 import NavigationBar from "./components/NavigationBar";
@@ -20,8 +20,10 @@ function App() {
                 <NavigationBar />
 
                 <Switch>
-                    <Home />
-                    <FeedLinkView fe />
+                    <Route path={'/'} exact><Home /></Route>
+                    {/*<Route path={'/FeedLinkView/:feedLink'} children={<FeedLinkView />} />*/}
+                    <Route path={'/FeedLinkView'} exact component={FeedLinkView} />
+
                 </Switch>
 
 
