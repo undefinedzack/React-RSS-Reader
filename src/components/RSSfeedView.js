@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect } from 'react'
 import Card from "./cards";
 
 let Parser = require('rss-parser');
@@ -10,17 +10,17 @@ class RSSfeedView extends Component{
     constructor(props) {
         super(props)
         this.state = {
-            userFeeds : [
-                this.props.feed
-            ],
+            userFeeds : [props.feed],
             feed : [],
             isLoaded : false
         }
     }
 
+
+
     componentDidMount() {
+        console.log('lol')
         this.requestFeeds()
-        console.log(this.state.userFeeds)
     }
 
     requestFeeds = async() => {
@@ -32,7 +32,6 @@ class RSSfeedView extends Component{
                         isLoaded : true
                     }
                 )
-                // console.log(this.state.feed)
             }) )
         })
     }
@@ -48,9 +47,7 @@ class RSSfeedView extends Component{
                 <div className={"container"}>
                     {/*{this.state.isLoaded && <img className={"rounded mx-auto d-block"} src={feedy.image.url} height={"500px"}/>}*/}
 
-
-
-                    {this.state.isLoaded && feedy.items.map( (item, index) => {
+                    {this.state.isLoaded && feedy.items.map( (item,index) => {
                         return(
                             <Card key={index} item={item} />
                         )

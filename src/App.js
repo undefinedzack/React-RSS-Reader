@@ -23,7 +23,6 @@ function App() {
                     <Route path={'/'} exact><Home /></Route>
                     {/*<Route path={'/FeedLinkView/:feedLink'} children={<FeedLinkView />} />*/}
                     <Route path={'/FeedLinkView'} exact component={FeedLinkView} />
-
                 </Switch>
 
 

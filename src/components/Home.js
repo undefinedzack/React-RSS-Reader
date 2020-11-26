@@ -1,25 +1,47 @@
 import React, {useState, useEffect} from 'react'
 import {URLS} from "../shared/URLS";
-import {BrowserRouter as Router, Link} from "react-router-dom";
-import RSSfeedView from "./RSSfeedView";
+import {Link} from "react-router-dom";
 
 const Home = () => {
 
-    const [feedLink, setFeedLink] = useState('')
-    const [userFeeds, setUserFeeds] = useState([...URLS])
+    const [feedLink, setFeedLink] = useState({})
+    const [userFeeds, setUserFeeds] = useState([])
+
+    useEffect(() => {
+        fetchUrls()
+    },[])
+
+    const fetchUrls = async () => {
+        const response = await fetch('https://vast-ocean-32435.herokuapp.com/api/urlz/')
+        const urls = await response.json()
+
+        setUserFeeds(urls)
+    }
 
     const handleChange = (e) => {
         const value = e.target.value
 
-        setFeedLink(value)
-        console.log(feedLink)
+        setFeedLink({
+            urlz : value
+        })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
-        setUserFeeds([...userFeeds, feedLink])
-        console.log(userFeeds)
+        let url = 'https://vast-ocean-32435.herokuapp.com/api/urlz-create/'
+
+        await fetch(url,{
+            method:'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(feedLink)
+        })
+
+        console.log(JSON.stringify(feedLink))
+
+        fetchUrls()
     }
 
     return (
@@ -34,16 +56,15 @@ const Home = () => {
                     </div>
                 </form>
 
-                {userFeeds.map( (feed, index) => {
+                {userFeeds.map( (feed) => {
                     return(
-                        <div key={index} className={"container"}>
-                            {/*<Link to={`/FeedLinkView/${feed}`}><h1>{feed}</h1></Link>*/}
+                        <div key={feed.id} className={"container"}>
                             <Link to={{
                                 pathname : '/FeedLinkView',
                                 state:{
-                                    url: feed
+                                    url: feed.urlz
                                 }
-                            }}><h1>{feed}</h1></Link>
+                            }}><h1>{feed.urlz}</h1></Link>
 
 
                         </div>
