@@ -58,13 +58,20 @@ const Home = () => {
     return (
         <>
             <div className={"container"}>
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="rssLink">RSS Link</label>
-                        <input type="text" className="form-control" id="rssLink"
-                               aria-describedby="rssLinkHelp" onChange={handleChange}/>
-                        <button type="submit" className="btn btn-primary">Add Feed</button>
+                <form className={"my-5"} onSubmit={handleSubmit}>
+                    <div className="form-row align-items-center">
+                        <div className="col-auto my-1">
+                            <label htmlFor="rssLink" className={"col-form-label col-form-label-lg"}>RSS Link</label>
+                        </div>
+                        <div className="col-sm-9 my-1">
+                            <input type="text" className="form-control" id="rssLink"
+                                   aria-describedby="rssLinkHelp" onChange={handleChange}/>
+                        </div>
+                        <div className="col-auto my-1">
+                            <button type="submit" className="btn btn-info">Add Feed</button>
+                        </div>
                     </div>
+
                 </form>
 
                 {userFeeds.map( (feed) => {
@@ -84,9 +91,6 @@ const Home = () => {
                                     <button onClick={ () => {deleteURL(feed)} } className="btn badge badge-pill badge-info">X</button>
                                 </div>
                             </div>
-
-
-
                         </div>
                     )
                 })}
