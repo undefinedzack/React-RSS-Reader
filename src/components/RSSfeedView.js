@@ -36,6 +36,13 @@ class RSSfeedView extends Component{
         })
     }
 
+    checkAvailability = (feed) => {
+        if (feed.image !== undefined)
+            return true
+        else
+            return false
+    }
+
     render() {
 
         const feedy = this.state.feed
@@ -45,13 +52,35 @@ class RSSfeedView extends Component{
                 <p>{console.log('feedy',feedy)}</p>
 
                 <div className={"container"}>
-                    <div className="jumbotron jumbotron-fluid">
+
+                    <div className="jumbotron">
                         <div className="container">
-                            <h1 className="display-4">{feedy.title}</h1>
-                            <p className="lead">{feedy.feedUrl}</p>
+
+                            {this.state.isLoaded ||
+                            <div className="d-flex justify-content-center">
+                                <div className="spinner-border text-warning" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                            </div>
+
+                            }
+                            <div className={"row"}>
+                                {this.state.isLoaded && (this.checkAvailability(feedy) &&
+                                    <div className={"col-4"}>
+                                         <img className={"rounded"} height={"auto"} width={"100%"} src={feedy.image.url} />
+                                    </div>
+                                )}
+                                <div className={"col-8"}>
+                                    <h1 className="display-4">{feedy.title}</h1>
+                                    <a className="lead">{feedy.feedUrl || feedy.link}</a>
+                                </div>
+                            </div>
+
+
+
                         </div>
                     </div>
-                    <h1></h1>
+
                     {this.state.isLoaded && feedy.items.map( (item,index) => {
                         return(
                             <Card key={index} item={item} />
