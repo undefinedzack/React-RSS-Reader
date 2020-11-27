@@ -44,6 +44,17 @@ const Home = () => {
         fetchUrls()
     }
 
+    const deleteURL = async (feed) => {
+        await fetch(`https://vast-ocean-32435.herokuapp.com/api/urlz-delete/${feed.id}/`,{
+            method: 'DELETE',
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        })
+
+        fetchUrls()
+    }
+
     return (
         <>
             <div className={"container"}>
@@ -59,12 +70,21 @@ const Home = () => {
                 {userFeeds.map( (feed) => {
                     return(
                         <div key={feed.id} className={"container"}>
-                            <Link to={{
-                                pathname : '/FeedLinkView',
-                                state:{
-                                    url: feed.urlz
-                                }
-                            }}><h1>{feed.urlz}</h1></Link>
+                            <div className={"row"}>
+                                <div className={"col-10"}>
+                                    <Link to={{
+                                        pathname : '/FeedLinkView',
+                                        state:{
+                                            url: feed.urlz
+                                        }
+                                    }}><h1>{feed.urlz}</h1>
+                                    </Link>
+                                </div>
+                                <div className={"col-2"}>
+                                    <button onClick={ () => {deleteURL(feed)} } className="btn badge badge-pill badge-info">X</button>
+                                </div>
+                            </div>
+
 
 
                         </div>
