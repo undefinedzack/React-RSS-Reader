@@ -45,8 +45,13 @@ class RSSfeedView extends Component{
                 <p>{console.log('feedy',feedy)}</p>
 
                 <div className={"container"}>
-                    {/*{this.state.isLoaded && <img className={"rounded mx-auto d-block"} src={feedy.image.url} height={"500px"}/>}*/}
-
+                    <div className="jumbotron jumbotron-fluid">
+                        <div className="container">
+                            <h1 className="display-4">{feedy.title}</h1>
+                            <p className="lead">{feedy.feedUrl}</p>
+                        </div>
+                    </div>
+                    <h1></h1>
                     {this.state.isLoaded && feedy.items.map( (item,index) => {
                         return(
                             <Card key={index} item={item} />
